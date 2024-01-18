@@ -1,0 +1,6 @@
+@RESTAURANT.ASYNC_HostAddress = http://localhost:5130
+
+GET {{RESTAURANT.ASYNC_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
