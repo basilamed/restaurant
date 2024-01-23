@@ -7,7 +7,7 @@ namespace RESTAURANT.ASYNC.Data.DTOs
         [Required]
         public string UserId { get; set; }
         [Required]
-        public List<string> OrderItems { get; set; }
+        public string OrderItems { get; set; }
         public string PhoneNumber { get; set; }
         public string TotalPrice { get; set; }
     }

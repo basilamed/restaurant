@@ -7,6 +7,6 @@ namespace RESTAURANT.GATEWAY.Data.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

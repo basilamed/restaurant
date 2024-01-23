@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using RESTAURANT.REST.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace RESTAURANT.REST.Data.DTOs
 {
@@ -22,5 +24,7 @@ namespace RESTAURANT.REST.Data.DTOs
         [Required]
         [StringLength(10, MinimumLength = 9)]
         public string PhoneNumber { get; set; }
+        [Required]
+        public Role Role { get; set; }
     }
 }

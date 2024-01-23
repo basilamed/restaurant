@@ -47,7 +47,7 @@ namespace RESTAURANT.REST.Services
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                RoleId = 1
+                Role = model.Role
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

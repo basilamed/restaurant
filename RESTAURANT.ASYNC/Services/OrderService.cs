@@ -22,7 +22,7 @@ namespace RESTAURANT.ASYNC.Services
             var order = new Order
             {
                 UserId = orderDTO.UserId,
-                OrderItems = string.Join(",", orderDTO.OrderItems),
+                OrderItems = orderDTO.OrderItems,
                 PhoneNumber = orderDTO.PhoneNumber,
                 TotalPrice = orderDTO.TotalPrice
             };

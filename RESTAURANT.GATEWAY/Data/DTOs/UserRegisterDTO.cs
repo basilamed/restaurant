@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RESTAURANT.GATEWAY.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace RESTAURANT.GATEWAY.Data.DTOs
 {
@@ -22,5 +23,7 @@ namespace RESTAURANT.GATEWAY.Data.DTOs
         [Required]
         [StringLength(10, MinimumLength = 9)]
         public string PhoneNumber { get; set; }
+        [Required]
+        public Role Role { get; set; }
     }
 }
