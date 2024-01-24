@@ -47,7 +47,7 @@ namespace RESTAURANT.REST.Services
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                Role = model.Role
+                Role = Enum.Parse<Role>(model.Role, true)
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

@@ -24,6 +24,6 @@ namespace RESTAURANT.GATEWAY.Data.DTOs
         [StringLength(10, MinimumLength = 9)]
         public string PhoneNumber { get; set; }
         [Required]
-        public Role Role { get; set; }
+        public string Role { get; set; }
     }
 }

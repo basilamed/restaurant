@@ -18,7 +18,7 @@ namespace RESTAURANT.GATEWAY.Services
         public string GenerateSecurityToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Secret").Value.PadRight(32, '*')));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Secret").Value));
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
@@ -26,12 +26,12 @@ namespace RESTAURANT.GATEWAY.Services
                 new Claim("userId", user.Id)
             };
             var token = new JwtSecurityToken(
-                                            claims: claims,
-                                            expires: DateTime.UtcNow.AddHours(1),
-                                            signingCredentials: new SigningCredentials(key, 
-                                            SecurityAlgorithms.HmacSha256));
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
-            return tokenHandler.WriteToken(token);
+            var tokenString = tokenHandler.WriteToken(token);
+            return tokenString;
         }
 
         public string? ExtractUserIdFromToken(string token)
@@ -40,15 +40,20 @@ namespace RESTAURANT.GATEWAY.Services
             {
                 return null;
             }
+            Console.WriteLine(token);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenUser = tokenHandler.ReadToken(token) as JwtSecurityToken;
             if(tokenUser != null)
             {
-                var userId = tokenUser.Claims.First(claim => claim.Type == "userId").Value;
-                if (!string.IsNullOrEmpty(userId))
+                var userId = tokenUser.Claims.First(claim => claim.Type == "userId");
+                if(userId != null)
                 {
-                    return userId;
+                    return userId.Value;
+                }
+                else
+                {
+                    return null;
                 }
             }
             return null;

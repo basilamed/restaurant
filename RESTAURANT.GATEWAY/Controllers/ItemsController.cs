@@ -7,6 +7,7 @@ using RESTAURANT.GATEWAY.Data.DTOs;
 using RESTAURANT.GATEWAY.Data.Models;
 using RESTAURANT.GATEWAY.Services;
 using System.Net.Http.Headers;
+using System.Reflection.PortableExecutable;
 
 namespace RESTAURANT.GATEWAY.Controllers
 {
@@ -63,14 +64,16 @@ namespace RESTAURANT.GATEWAY.Controllers
                 }
 
                 var token = header.ToString().Substring(7).Trim();
+
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var employeeId = _jwtService.ExtractUserIdFromToken(token);
+                Console.WriteLine(employeeId);
                 if (employeeId == null)
                 {
                     return Unauthorized();
                 }
-
+                 
                 var response = await _client.PostAsJsonAsync(_urls.Items + "/show/items/addItem", item);
                 if (response.IsSuccessStatusCode)
                 {
@@ -78,6 +81,7 @@ namespace RESTAURANT.GATEWAY.Controllers
                     var result = JsonConvert.DeserializeObject<Item>(itemResponse);
                     return Ok(result);
                 }
+
                 return BadRequest();
             }
             catch (Exception ex)
@@ -86,40 +90,39 @@ namespace RESTAURANT.GATEWAY.Controllers
             }
         }
 
-        [HttpDelete("{id}"), Authorize(Roles = "employee")]
-        public async Task<IActionResult> DeleteItem(string id)
-        {
-            try
-            {
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteItem(string id)
+        //{
+        //    try
+        //    {
+        //         var header = Request.Headers["Authorization"].ToString();
+                //if (string.IsNullOrEmpty(header) || !header.ToString().StartsWith("Bearer "))
+                //{
+                //    return Unauthorized();
+                // }
 
-                var header = Request.Headers["Authorization"].ToString();
-                if (string.IsNullOrEmpty(header) || !header.ToString().StartsWith("Bearer "))
-                {
-                    return Unauthorized();
-                }
+                // var token = header.ToString().Substring(7).Trim();
+    //        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer ", token);
 
-                var token = header.ToString().Substring(7).Trim();
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    //        var employeeId = _jwtService.ExtractUserIdFromToken(token);
 
-                var employeeId = _jwtService.ExtractUserIdFromToken(token);
+    //        if (employeeId == null)
+    //        {
+    //            return Unauthorized();
+    //        }
 
-                if (employeeId == null)
-                {
-                    return Unauthorized();
-                }
-                
-                var response = await _client.DeleteAsync(_urls.Items + "/show/items/deleteItem/" + id);
-                if (response.IsSuccessStatusCode)
-                {
-                    return Ok();
-                }
-                return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+    //        var response = await _client.DeleteAsync(_urls.Items + "/show/items/deleteItem/" + id);
+    //        if (response.IsSuccessStatusCode)
+    //        {
+    //            return Ok();
+    //        }
+    //        return BadRequest();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
 
-    }
+}
 }

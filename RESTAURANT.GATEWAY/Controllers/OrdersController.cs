@@ -51,7 +51,7 @@ namespace RESTAURANT.GATEWAY.Controllers
             return BadRequest();
         }
 
-        [HttpPost("create"), Authorize(Roles = "customer")]
+        [HttpPost("create"), Authorize(Roles = "employee")]
         public async Task<IActionResult> CreateOrder(OrderRequestDTO model)
         {
             try
