@@ -38,6 +38,6 @@ app.MapControllers();
 
 MigrateDb.PrepPopulation(app);
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/healthz");
 
 app.Run();

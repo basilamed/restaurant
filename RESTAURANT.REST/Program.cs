@@ -65,6 +65,6 @@ app.MapControllers();
 
 MigrateDB.PrepPopulation(app);
 
-app.UseHealthChecks("/health");
+app.UseHealthChecks("/healthz");
 
 app.Run();
